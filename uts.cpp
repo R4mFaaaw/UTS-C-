@@ -23,13 +23,62 @@ struct NodeLog {
     NodeLog* prev;
 };
 
+NodeAntrean* headAntrean = nullptr;
+NodeLog* headLog = nullptr;
+NodeLog* tailLog = nullptr;
+
+string kategori[3] = {"Elektronik", "Pakaian", "Makanan"};
+
+// fungsi bantu
+bool isAntreanKosong(){
+    return (headAntrean == nullptr);
+}
+
+void tambahlog(string aksi){
+    NodeLog* newNode = new NodeLog;
+    newNode->aktivitas = aksi;
+    newNode->next = nullptr;
+    newNode->prev = tailLog;
+
+    if (headlLog == nullptr){
+        headLog = tailLog = newNode;
+    } else{
+        tailLog->next = newNode;
+        teilLog = newNode;
+    }
+}
+
 // ngoding well #MALES
-void tambahAntrean(){}
-void prosesAntrean(){}
+void tambahAntrean(int id, string nama){
+    NodeAntrean* newNode = new NodeAntrean;
+    newNode->data = {id,nama};
+    newNode->next = nullptr;
+
+    if (headAntrean == nullptr){
+        headAntrean = newNode;
+    } else {
+        NodeAntrean* temp = headAntrean;
+        while (temp->next != nullptr) temp = temp->next;
+        temp->next = newNode;
+    }
+    tambahLog("Menambah barang ke antrean: " + nama);
+}
+void prosesAntrean(){
+    if (isAntreanKosong()) {
+        cout << "\n[!] Peringatan: Antrean kosong, tidak ada yang bisa di proses.\n";
+        return;
+    }
+
+    NodeAntrean* temp = headAntrean;
+    string namaTerhapus = temp->data.nama;
+
+    headAntrean = headAntrean->next;
+    delete temp;
+}
 void tampilkanSemuaBarang(){}
 void cariBarang(){}
 void lihatRiwayat(){}
-void tambahlog(){}
+
 
 int main(){
     cout << "1. Tambah barang" << endl;
